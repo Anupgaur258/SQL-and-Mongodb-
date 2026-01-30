@@ -1,0 +1,462 @@
+/* =====================================================================
+   SQL MASTER NOTES (YAHU BABA COMPLETE 38 CHAPTERS)
+   FORMAT: DEF + WHEN TO USE + WHERE USED + INPUT + OUTPUT + REAL WORLD
+   ===================================================================== */
+
+/* =========================
+   1. CREATE DATABASE
+   =========================
+   DEF: Creates a new database container
+   WHEN: Starting a new project/system
+   WHERE: College DB, Bank DB
+   INPUT: CREATE DATABASE college;
+   OUTPUT: Query OK
+   REAL: College → student/course tables
+*/
+
+/* =========================
+   2. CREATE TABLE
+   =========================
+   DEF: Defines structure (columns + constraints)
+   WHEN: Need to store entity data
+   WHERE: Student, Employee, Product
+   INPUT: CREATE TABLE student(id INT PRIMARY KEY, name VARCHAR(50));
+   OUTPUT: Table created
+   REAL: Student records in college
+*/
+
+/* =========================
+   3. INSERT DATA
+   =========================
+   DEF: Add rows into table
+   WHEN: Populate records
+   WHERE: Any transactional system
+   INPUT: INSERT INTO student VALUES(1,'Anup');
+   OUTPUT: 1 row inserted
+   REAL: Add new customer
+*/
+
+/* =========================
+   4. SELECT
+   =========================
+   DEF: Retrieve data
+   WHEN: Reporting, searching
+   WHERE: Analytics dashboards
+   INPUT: SELECT * FROM student;
+   OUTPUT: All rows
+   REAL: Show all students
+*/
+
+/* =========================
+   5. WHERE
+   =========================
+   DEF: Filter rows
+   WHEN: Need specific subset
+   WHERE: Targeted queries
+   INPUT: SELECT * FROM student WHERE city='Delhi';
+   OUTPUT: Only Delhi students
+   REAL: Find customers in city
+*/
+
+/* =========================
+   6. LOGICAL OPERATORS
+   =========================
+   DEF: Combine conditions (AND, OR, NOT)
+   WHEN: Complex filters
+   WHERE: Eligibility checks
+   INPUT: SELECT * FROM student WHERE age>20 AND city='Delhi';
+   OUTPUT: Rows matching both
+   REAL: Eligible voters in Delhi
+*/
+
+/* =========================
+   7. IN / BETWEEN / LIKE / REGEXP
+   =========================
+   DEF: Flexible filtering
+   WHEN: Pattern or range search
+   WHERE: Search modules
+   INPUT: SELECT * FROM student WHERE age BETWEEN 20 AND 25;
+   OUTPUT: Rows age 20–25
+   REAL: Orders between two dates
+*/
+
+/* =========================
+   8. ORDER BY / DISTINCT / LIMIT
+   =========================
+   DEF: Sort, deduplicate, restrict
+   WHEN: Ranking, pagination
+   WHERE: Reports, UI lists
+   INPUT: SELECT DISTINCT city FROM student ORDER BY city ASC LIMIT 2;
+   OUTPUT: Top 2 unique cities
+   REAL: Top 10 products
+*/
+
+/* =========================
+   9. NULL CHECK
+   =========================
+   DEF: Handle missing values
+   WHEN: Data cleaning
+   WHERE: Validation systems
+   INPUT: SELECT * FROM student WHERE city IS NULL;
+   OUTPUT: Rows with null city
+   REAL: Find incomplete forms
+*/
+
+/* =========================
+   10. AGGREGATE FUNCTIONS
+   =========================
+   DEF: Perform calculations on sets
+   WHEN: Analytics
+   WHERE: Reports, BI tools
+   INPUT: SELECT AVG(age) FROM student;
+   OUTPUT: 22.0
+   REAL: Average salary
+*/
+
+/* =========================
+   11. UPDATE
+   =========================
+   DEF: Modify existing data
+   WHEN: Correct info
+   WHERE: Any CRUD system
+   INPUT: UPDATE student SET city='Kanpur' WHERE id=1;
+   OUTPUT: 1 row affected
+   REAL: Change address
+*/
+
+/* =========================
+   12. DELETE
+   =========================
+   DEF: Remove rows
+   WHEN: Clean unwanted data
+   WHERE: Maintenance
+   INPUT: DELETE FROM student WHERE id=2;
+   OUTPUT: 1 row deleted
+   REAL: Remove dropout student
+*/
+
+/* =========================
+   13. TRANSACTION (COMMIT/ROLLBACK)
+   =========================
+   DEF: Group queries atomically
+   WHEN: Critical operations
+   WHERE: Banking, e-commerce
+   INPUT: START TRANSACTION; UPDATE...; ROLLBACK; COMMIT;
+   OUTPUT: Changes saved/undone
+   REAL: Money transfer safety
+*/
+
+/* =========================
+   14. PRIMARY & FOREIGN KEY
+   =========================
+   DEF: Ensure relational integrity
+   WHEN: Linking tables
+   WHERE: Relational DB
+   INPUT: FOREIGN KEY(sid) REFERENCES student(id);
+   OUTPUT: Constraint applied
+   REAL: Orders linked to customers
+*/
+
+/* =========================
+   15. JOINS (INNER/LEFT/RIGHT/CROSS)
+   =========================
+   DEF: Combine rows from multiple tables
+   WHEN: Need related data
+   WHERE: Reporting
+   INPUT: SELECT s.name,c.cname FROM student s INNER JOIN course c ON s.id=c.sid;
+   OUTPUT: Student + course
+   REAL: Student + enrolled course
+*/
+
+/* =========================
+   16. GROUP BY + HAVING
+   =========================
+   DEF: Group rows, filter aggregates
+   WHEN: Summaries
+   WHERE: Analytics
+   INPUT: SELECT city,COUNT(*) FROM student GROUP BY city HAVING COUNT(*)>1;
+   OUTPUT: Cities with >1 student
+   REAL: Customers per city
+*/
+
+/* =========================
+   17. SUBQUERY
+   =========================
+   DEF: Query inside another query
+   WHEN: Complex conditions
+   WHERE: Nested logic
+   INPUT: SELECT name FROM student WHERE age>(SELECT AVG(age) FROM student);
+   OUTPUT: Above-average students
+   REAL: Find high-value customers
+*/
+
+/* =========================
+   18. UNION / UNION ALL
+   =========================
+   DEF: Merge results
+   WHEN: Combine sets
+   WHERE: Multi-source reports
+   INPUT: SELECT city FROM student UNION SELECT cname FROM course;
+   OUTPUT: Combined list
+   REAL: All locations
+*/
+
+/* =========================
+   19. IF / CASE
+   =========================
+   DEF: Conditional logic
+   WHEN: Categorization
+   WHERE: Reports
+   INPUT: CASE WHEN age>21 THEN 'Adult' ELSE 'Minor' END
+   OUTPUT: Adult/Minor labels
+   REAL: Age groups
+*/
+
+/* =========================
+   20. STRING FUNCTIONS
+   =========================
+   DEF: Manipulate text
+   WHEN: Formatting
+   WHERE: Display systems
+   INPUT: SELECT UPPER(name), LENGTH(name) FROM student;
+   OUTPUT: Names in uppercase + length
+   REAL: Format names
+*/
+
+/* =========================
+   21. DATE & TIME FUNCTIONS
+   =========================
+   DEF: Work with dates/times
+   WHEN: Scheduling, age calc
+   WHERE: HR, banking
+   INPUT: SELECT CURDATE(), DATEDIFF(CURDATE(),'2000-01-01');
+   OUTPUT: Current date, difference
+   REAL: Age calculation
+*/
+
+/* =========================
+   22. ALTER TABLE
+   =========================
+   DEF: Change structure
+   WHEN: Schema evolution
+   WHERE: Maintenance
+   INPUT: ALTER TABLE student ADD marks INT;
+   OUTPUT: Column added
+   REAL: Add new field
+*/
+
+/* =========================
+   23. DROP / TRUNCATE
+   =========================
+   DEF: Remove data/structure
+   WHEN: Reset/cleanup
+   WHERE: Maintenance
+   INPUT: TRUNCATE TABLE student; DROP TABLE student;
+   OUTPUT: Data/structure removed
+   REAL: Archive old data
+*/
+
+/* =========================
+   24. VIEW
+   =========================
+   DEF: Virtual table (saved query)
+   WHEN: Simplify queries
+   WHERE: Reporting
+   INPUT: CREATE VIEW delhi_students AS SELECT * FROM student WHERE city='Delhi';
+   OUTPUT: View created
+   REAL: Report view
+*/
+
+/* =========================
+   25. INDEX
+   =========================
+   DEF: Speed up search
+   WHEN: Optimize queries
+   WHERE: Large DB
+   INPUT: CREATE INDEX idx_city ON student(city);
+   OUTPUT: Index created
+   REAL: Fast lookup
+*/
+
+/* =========================
+   26. STORED PROCEDURE
+   =========================
+   DEF: Predefined query block
+   WHEN: Reuse logic
+   WHERE: Enterprise DB
+   INPUT: CREATE PROCEDURE getStudents() BEGIN SELECT * FROM student; END;
+   OUTPUT: Procedure created
+   REAL: Get all students
+*/
+
+/* =========================
+   27. FUNCTION
+   =========================
+   DEF: Return single value
+   WHEN: Custom calculation
+   WHERE: Business logic
+   INPUT: CREATE FUNCTION getBonus(age INT) RETURNS INT BEGIN RETURN age*100; END;
+   OUTPUT: Bonus value
+   REAL: Salary bonus
+*/
+
+/* =========================
+   28. TRIGGER
+   =========================
+   DEF: Auto action on event
+   WHEN: Audit/logging
+   WHERE: Enterprise DB
+   INPUT: AFTER INSERT ON student → log table
+   OUTPUT: Log entry created
+   REAL: Track changes
+*/
+
+/* =========================
+   29. NORMALIZATION
+   =========================
+   DEF: Organize data to reduce redundancy
+   WHEN: Designing schema
+   WHERE: Any DB design
+   REAL: Bank schema normalization
+*/
+
+/* =========================
+   /* =========================
+   30. SQL COMMAND TYPES
+   =========================
+   DEF: Categories of SQL commands
+   WHEN: To classify operations
+   WHERE: Any DBMS
+   INPUT: --
+   OUTPUT: --
+   REAL:
+   - DDL: CREATE, DROP, ALTER (structure)
+   - DML: INSERT, UPDATE, DELETE (data)
+   - DQL: SELECT (query)
+   - DCL: GRANT, REVOKE (permissions)
+   - TCL: COMMIT, ROLLBACK (transactions)
+*/
+
+/* =========================
+   31. TRANSACTION SAVEPOINT
+   =========================
+   DEF: Mark a point in transaction to rollback partially
+   WHEN: Complex transactions
+   WHERE: Banking, e-commerce
+   INPUT:
+   START TRANSACTION;
+   SAVEPOINT sp1;
+   UPDATE student SET city='Agra' WHERE id=1;
+   ROLLBACK TO sp1;
+   COMMIT;
+   OUTPUT: Partial rollback done
+   REAL: Rollback only last step in money transfer
+*/
+
+/* =========================
+   32. ADVANCED INDEXES
+   =========================
+   DEF: Specialized indexes for optimization
+   WHEN: Speed up queries
+   WHERE: Large datasets
+   INPUT:
+   CREATE UNIQUE INDEX idx_email ON student(email);
+   CREATE INDEX idx_name_city ON student(name,city);
+   OUTPUT: Index created
+   REAL: Fast search by email or name+city
+*/
+
+/* =========================
+   33. PROCEDURE PARAMETERS
+   =========================
+   DEF: Stored procedure with IN/OUT/INOUT params
+   WHEN: Reusable logic with inputs/outputs
+   WHERE: Enterprise DB
+   INPUT:
+   DELIMITER //
+   CREATE PROCEDURE getStudentByCity(IN cityName VARCHAR(30))
+   BEGIN
+     SELECT * FROM student WHERE city=cityName;
+   END //
+   DELIMITER ;
+   CALL getStudentByCity('Delhi');
+   OUTPUT: All Delhi students
+   REAL: Get customers by city
+*/
+
+/* =========================
+   34. FUNCTIONS (Advanced)
+   =========================
+   DEF: User-defined functions for calculations
+   WHEN: Custom business logic
+   WHERE: Finance, HR
+   INPUT:
+   CREATE FUNCTION calcTax(salary INT) RETURNS INT
+   BEGIN
+     RETURN salary*0.1;
+   END;
+   SELECT calcTax(50000);
+   OUTPUT: 5000
+   REAL: Tax calculation
+*/
+
+/* =========================
+   35. TRIGGERS (Advanced)
+   =========================
+   DEF: Auto action on INSERT/UPDATE/DELETE
+   WHEN: Audit, enforce rules
+   WHERE: Enterprise DB
+   INPUT:
+   CREATE TRIGGER before_delete BEFORE DELETE ON student
+   FOR EACH ROW
+   BEGIN
+     INSERT INTO student_log VALUES(OLD.id,'DELETE');
+   END;
+   OUTPUT: Log entry created before delete
+   REAL: Track deletions
+*/
+
+/* =========================
+   36. NORMALIZATION (1NF → BCNF)
+   =========================
+   DEF: Organize data to reduce redundancy
+   WHEN: Schema design
+   WHERE: Any DB
+   INPUT: --
+   OUTPUT: --
+   REAL:
+   - 1NF: Atomic values
+   - 2NF: No partial dependency
+   - 3NF: No transitive dependency
+   - BCNF: Stronger 3NF
+   Example: Bank schema normalized
+*/
+
+/* =========================
+   37. REAL-WORLD SYSTEMS
+   =========================
+   DEF: Mapping SQL to applications
+   WHEN: Designing DB
+   WHERE: Industry systems
+   INPUT: --
+   OUTPUT: --
+   REAL:
+   - Bank → customers, accounts, transactions
+   - College → students, courses, marks
+   - Amazon → users, orders, products
+   - Hospital → patients, doctors, appointments
+*/
+
+/* =========================
+   38. FULL SUMMARY
+   =========================
+   SQL covers:
+   - Data definition (CREATE, ALTER, DROP)
+   - Data manipulation (INSERT, UPDATE, DELETE)
+   - Querying (SELECT, WHERE, JOIN, GROUP BY)
+   - Advanced (Views, Indexes, Procedures, Functions, Triggers)
+   - Design (Normalization)
+   WHEN: From small apps to enterprise systems
+   WHERE: Everywhere data is stored
+   REAL: SQL is backbone of modern applications
+*/
